@@ -2,6 +2,7 @@ const express = require('express');
 const app = new express();
 
 let loginDetails = [];
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 app.get("/",(req,res)=>{
     res.send("Welcome to the express server")
@@ -9,6 +10,16 @@ app.get("/",(req,res)=>{
 
 app.get("/loginDetails",(req,res)=>{
     res.send(JSON.stringify(loginDetails));
+})
+
+app.get("/fetch/:num",(req,res)=>{
+    let num = parseInt(req.params.num);
+    if(num <1 || num >12) {
+        res.send("Not a valid month number")
+    } else {
+        res.send(months[num-1])
+    }
+
 })
 
 app.post("/login/:name",(req,res)=>{
